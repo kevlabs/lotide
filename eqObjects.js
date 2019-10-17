@@ -15,7 +15,8 @@ const eqObjects = function(object1, object2) {
   const keys1 = Object.keys(object1);
   if (keys1.length !== Object.keys(object2).length) return false;
   for (const key of keys1) {
-    if (typeof object1[key] !== 'object') {
+    //test for value as null is of type object
+    if (typeof object1[key] !== 'object' || !object1[key]) {
       //compare primitives first
       if (object1[key] !== object2[key]) return false;
     } else {
