@@ -11,10 +11,15 @@ const assertEqual = function(actual, expected) {
 
 const eqArrays = function(arr1, arr2) {
   if (arr1.length !== arr2.length) return false;
-  return arr1.every((elem, i) => elem === arr2[i]);
+  return arr1.every((elem, i) => Array.isArray(elem) && eqArrays(elem, arr2[i]) || elem === arr2[i]);
 };
 
 console.log(eqArrays([1, 2, 3], [1, 2, 3])); // => true
 console.log(eqArrays([1, 2, 3], [3, 2, 1])); // => false
 console.log(eqArrays(["1", "2", "3"], ["1", "2", "3"])); // => true
 console.log(eqArrays(["1", "2", "3"], ["1", "2", 3])); // => false
+
+console.log(eqArrays([[2, 3], [4]], [[2, 3], [4]])); // => true
+console.log(eqArrays([[2, [3], [4]]], [[2, [3], [4]]])); // => true
+console.log(eqArrays([[2, 3], [4]], [[2, 3], [4, 5]])); // => false
+console.log(eqArrays([[2, 3], [4]], [[2, 3], 4])); // => false
