@@ -13,7 +13,7 @@ const assertEqual = function(actual, expected) {
 // Otherwise you get back a big fat false!
 const eqObjects = function(object1, object2) {
   const keys1 = Object.keys(object1);
-  if (keys1.length !== Object.keys(object2).length) return false;
+  if (keys1.length !== Object.keys(object2).length || typeof object1 !== typeof object2) return false;
   for (const key of keys1) {
     //test for value as null is of type object
     if (typeof object1[key] !== 'object' || !object1[key]) {
@@ -46,3 +46,5 @@ assertEqual(eqObjects({ a: { z: 1 }, b: 2 }, { a: { z: 1 }, b: 2 }), true);
 assertEqual(eqObjects({ a: { z: 1, f: {e: 3, c: 2} }, b: 2 }, { a: { z: 1, f: {e: 3, c: 2} }, b: 2 }), true);
 assertEqual(eqObjects({ a: { y: 0, z: 1 }, b: 2 }, { a: { z: 1 }, b: 2 }), false);
 assertEqual(eqObjects({ a: { y: 0, z: 1 }, b: 2 }, { a: 1, b: 2 }), false);
+assertEqual(eqObjects(['s', 't', 'r'], 'str'), false);
+assertEqual(eqObjects(['s', 't', 'r'], {0: 's', 1: 't', 2: 'r'}), true);
