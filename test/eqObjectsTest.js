@@ -1,4 +1,4 @@
-const assertEqual = require('../assertEqual')
+const assertEqual = require('../assertEqual');
 const eqObjects = require('../eqObjects');
 
 const ab = { a: "1", b: "2" };
